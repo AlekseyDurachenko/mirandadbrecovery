@@ -460,6 +460,7 @@ bool miranda2json(const QString &mirandaDbFile,
 
     // create accounts own list
     QMap<QString, QVariant> accountsMap;
+    accountsMap["id"] = header.ofsUser;
     QMap<QString, QMap<QString, QVariant>> userContact = GetSettings(dbContacts[header.ofsUser], dbContactSettings, dbModuleNames, decoder);
     if (userContact.contains("VKontakte")) {
         QVariantMap v;

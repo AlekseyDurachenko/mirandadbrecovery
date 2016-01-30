@@ -8,6 +8,7 @@ __Be creaful: it works only for my case. In your case it may work with bugs and 
 ```
 { 
   "accounts": [
+    "id": "$VALUE",
     "vk": {
       "useremail": "$VALUE"
     },
