@@ -12,6 +12,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#include "miranda.h"
 #include <QtArgumentParser>
 #include <QCoreApplication>
 #include <iostream>
@@ -19,16 +20,13 @@
 
 void printUsage()
 {
-    std::cout
-            << "mirandadbrecovery Ver 0.1.0 [2016.01.27"        << std::endl
-            << "    Recovery the miranda database"              << std::endl
-            << "Usage:"                                         << std::endl
-            << "    mirandadbrecovery -i miranda.db -o output.ext "
-            << "-f <output_format> [--verbose]"                 << std::endl
-            << "Options:"                                       << std::endl
-            << "    -i input file name"                         << std::endl
-            << "    -o output file name"                        << std::endl
-            << "    -f output format ['sqlite']"                << std::endl;
+    std::cout << "mirandadbrecovery v.1.0"              << std::endl
+              << "    Recovery the miranda database"    << std::endl
+              << "Usage:"                               << std::endl
+              << "    mirandadbrecovery -i miranda.db -o output.json [-v]" << std::endl
+              << "Options:"                             << std::endl
+              << "    -i input miranda database"        << std::endl
+              << "    -o output json file"              << std::endl;
 }
 
 
@@ -39,8 +37,7 @@ int main(int argc, char *argv[])
     QtArgumentParser parser(QCoreApplication::arguments());
     parser.add("-i", QtArgumentParser::String);
     parser.add("-o", QtArgumentParser::String);
-    parser.add("-f", QtArgumentParser::Variant, QStringList() << "sqlite");
-    parser.add("--verbose", QtArgumentParser::Flag);
+    parser.add("-v", QtArgumentParser::Flag);
 
     if (!parser.parse()) {
         std::cout << "cannot parse the arguments: "
@@ -50,23 +47,23 @@ int main(int argc, char *argv[])
     }
 
     QVariantMap map = parser.result();
-    if (!map.contains("-i") || !map.contains("-o") || !map.contains("-f")) {
+    if (!map.contains("-i") || !map.contains("-o")) {
         printUsage();
-        return -1;        
+        return -1;
     }
 
     const QString input = map.value("-i").toString();
     const QString output = map.value("-o").toString();
-    const QString format = map.value("-f").toString();
-    const bool verbose = map.value("--verbose").toBool();
+    const bool verbose = map.value("-v").toBool();
 
     std::cout << "== Summary ==" << std::endl;
-    std::cout << "  MirandaDb filename: " << input.toStdString() << std::endl;
-    std::cout << "  Output filename   : " << output.toStdString() << std::endl;
-    std::cout << "  Output format     : " << format.toStdString() << std::endl;
-    std::cout << "  Verbose           : " << (verbose ? "true" : "false") << std::endl;
+    std::cout << "  Miranda database: " << input.toStdString() << std::endl;
+    std::cout << "  Output json file: " << output.toStdString() << std::endl;
+    std::cout << "  Verbose         : " << (verbose ? "true" : "false") << std::endl;
 
+    if (miranda2json(input, output, verbose)) {
+        return 0;
+    }
 
-
-    return 0;
+    return 1;
 }

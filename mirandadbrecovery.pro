@@ -24,7 +24,7 @@ QT              -= gui
 
 
 # enable c++11 features
-#QMAKE_CXXFLAGS += -std=c++11
+QMAKE_CXXFLAGS += -std=c++11
 
 
 # application version for using inside source code
@@ -87,3 +87,4 @@ include($$PWD/mirandadbrecovery-unixrules.pri)
 
 # the 3rd libraries (.pri)
 include($$PWD/submodules/QtArgumentParser/qtargumentparser.pri)
+include($$PWD/submodules/qt-json/qt-json.pri)

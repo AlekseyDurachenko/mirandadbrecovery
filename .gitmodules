@@ -1,3 +1,6 @@
 [submodule "submodules/QtArgumentParser"]
 	path = submodules/QtArgumentParser
 	url = https://github.com/AlekseyDurachenko/QtArgumentParser.git
+[submodule "submodules/qt-json"]
+	path = submodules/qt-json
+	url = https://github.com/AlekseyDurachenko/qt-json.git

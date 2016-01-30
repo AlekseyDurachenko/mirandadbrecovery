@@ -3,11 +3,11 @@ INCLUDEPATH    +=                                                       \
 
 
 HEADERS        +=                                                       \
-    $$PWD/src/miranda.h                                                 \
+    $$PWD/src/miranda.h
 
 
 SOURCES        +=                                                       \
-    $$PWD/src/miranda.cpp                                               \
+    $$PWD/src/miranda.cpp
 
 
 FORMS          +=                                                       \
